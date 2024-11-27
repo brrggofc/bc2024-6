@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000" # Відображення порту контейнера на локальний порт
+    volumes:
+      - .:/app # Додає ваші локальні файли у контейнер
+      - /app/node_modules # Ігнорує зміни в node_modules
+    command: npm start # Команда для запуску програми
