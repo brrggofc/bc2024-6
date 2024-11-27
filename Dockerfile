@@ -1,20 +1,15 @@
-# Використання офіційного Node.js образу
 FROM node:18
 
-# Встановлення робочої директорії
 WORKDIR /app
 
-# Копіювання файлу package.json для встановлення залежностей
-COPY package.json .
+COPY package.json package-lock.json ./
 
-# Встановлення залежностей
 RUN npm install
 
-# Копіювання всіх файлів у контейнер
+RUN npm install -g nodemon && npm install --legacy-peer-deps
+
 COPY . .
 
-# Експонування порту 3000
 EXPOSE 3000
 
-# Запуск програми
-CMD ["node", "main.js"]
+CMD ["nodemon", "--", "node", "index.js", "-h", "0.0.0.0", "-p", "3000", "-c", "/app/cache"]
